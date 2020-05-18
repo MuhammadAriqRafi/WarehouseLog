@@ -269,6 +269,7 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
+        submitButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         submitButton.setText("Submit");
         submitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -277,6 +278,7 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
+        editButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         editButton.setText("Edit");
         editButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editButton.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +287,7 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         deleteButton.setText("Delete");
         deleteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -293,6 +296,7 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
+        refreshButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         refreshButton.setText("Refresh");
         refreshButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -452,7 +456,7 @@ public class panelBarang extends javax.swing.JFrame {
             .addGroup(databaseContainerLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         databaseContainerLayout.setVerticalGroup(
             databaseContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
