@@ -46,6 +46,34 @@ public class panelBarang extends javax.swing.JFrame {
         }
     }
     
+    private void search(){
+        DefaultTableModel model = new DefaultTableModel();
+        
+        model.addColumn("Kode");
+        model.addColumn("Nama");
+        model.addColumn("Jenis");
+        model.addColumn("Jumlah");
+        model.addColumn("Supplier");
+        model.addColumn("Tanggal Terima");
+        
+        String cari = searchField.getText();
+        
+        try{
+            String sql = "SELECT * FROM barang WHERE kode_barang LIKE '%"+cari+"%'";
+            java.sql.Connection conn = (Connection)config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+            }
+            tableBarang.setModel(model);
+            
+        }catch (SQLException e){
+            System.out.println("Error : " + e.getMessage());
+        }
+    }
+    
     private void setColor(JPanel panel){
         panel.setBackground(new Color(207,117,0));
     }
@@ -99,6 +127,8 @@ public class panelBarang extends javax.swing.JFrame {
         databaseContainer = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableBarang = new javax.swing.JTable();
+        searchField = new javax.swing.JTextField();
+        search = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Warehouse Log");
@@ -269,7 +299,6 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
-        submitButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         submitButton.setText("Submit");
         submitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +307,6 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
-        editButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         editButton.setText("Edit");
         editButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editButton.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +315,6 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
-        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         deleteButton.setText("Delete");
         deleteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +323,6 @@ public class panelBarang extends javax.swing.JFrame {
             }
         });
 
-        refreshButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         refreshButton.setText("Refresh");
         refreshButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -449,21 +475,44 @@ public class panelBarang extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableBarang);
 
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+
+        search.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        search.setText("Cari");
+
         javax.swing.GroupLayout databaseContainerLayout = new javax.swing.GroupLayout(databaseContainer);
         databaseContainer.setLayout(databaseContainerLayout);
         databaseContainerLayout.setHorizontalGroup(
             databaseContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(databaseContainerLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(databaseContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(databaseContainerLayout.createSequentialGroup()
+                        .addComponent(search)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         databaseContainerLayout.setVerticalGroup(
             databaseContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(databaseContainerLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(17, 17, 17)
+                .addGroup(databaseContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         cardPanel.add(databaseContainer, "card3");
@@ -604,6 +653,14 @@ public class panelBarang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_panelTambahDataMousePressed
 
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+    
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        search();
+    }//GEN-LAST:event_searchFieldKeyReleased
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -658,6 +715,8 @@ public class panelBarang extends javax.swing.JFrame {
     private javax.swing.JPanel panelGudang;
     private javax.swing.JPanel panelTambahData;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel search;
+    private javax.swing.JTextField searchField;
     private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
     private javax.swing.JSeparator separator3;
