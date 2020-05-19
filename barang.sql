@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2020 at 04:47 PM
+-- Generation Time: May 19, 2020 at 03:56 AM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.29
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,12 +30,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barang` (
   `kode_barang` varchar(20) NOT NULL,
-  `nama_barang` varchar(30) NOT NULL,
-  `jenis_barang` varchar(30) NOT NULL,
-  `jumlah` varchar(20) NOT NULL,
-  `Suppliers` varchar(30) NOT NULL,
-  `Tgl_transaksi` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nama_barang` varchar(20) NOT NULL,
+  `jenis_barang` varchar(20) NOT NULL,
+  `jumlah_barang` varchar(20) NOT NULL,
+  `supplier_barang` varchar(20) NOT NULL,
+  `tanggal_terima` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`kode_barang`, `nama_barang`, `jenis_barang`, `jumlah_barang`, `supplier_barang`, `tanggal_terima`) VALUES
+('001', 'Kecap', 'Sembako', '100', 'Unilever', '16 Mei 2020'),
+('002', 'Beras', 'Sembako', '50', 'Raja Udang', '17 Mei 2020'),
+('01', 'Minyak', 'Sembako', '25', 'Sania', '18 Mei 2020');
 
 --
 -- Indexes for dumped tables
