@@ -59,7 +59,7 @@ public class panelBarang extends javax.swing.JFrame {
         String cari = searchField.getText();
         
         try{
-            String sql = "SELECT * FROM barang WHERE kode_barang LIKE '%"+cari+"%'";
+            String sql = "SELECT * FROM barang WHERE kode_barang LIKE '%"+cari+"%' or nama_barang LIKE '%"+cari+"%' or supplier_barang LIKE '%"+cari+"%'";
             java.sql.Connection conn = (Connection)config.configDB();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
@@ -662,7 +662,7 @@ public class panelBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_panelTambahDataMousePressed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_searchFieldActionPerformed
     
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
